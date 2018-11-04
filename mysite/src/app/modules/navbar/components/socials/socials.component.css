@@ -1,0 +1,8 @@
+li {
+    margin: 10px 0;
+    text-align: center; }
+a {
+    width: 15px;
+    height: 15px;
+    font-size: 1.5em;
+    transition: color 0.2s ease-in-out; }

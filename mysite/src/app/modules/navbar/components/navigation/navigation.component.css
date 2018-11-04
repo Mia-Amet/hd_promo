@@ -1,0 +1,31 @@
+li {
+    height: 20px;
+    width: 20px;
+    margin: 20px 0; }
+    li:hover {
+        cursor: pointer; }
+    li:hover span {
+        opacity: 1; }
+    li:hover img {
+        opacity: 0; }
+    a {
+        display: flex;
+        flex-direction: column;
+        align-items: center; }
+        span {
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+            position: absolute;
+            top: 6px; }
+        .img_wrapper {
+            width: 20px;
+            height: 20px;
+            overflow: hidden; }
+            .img_wrapper img {
+                opacity: 1;
+                width: 40px;
+                height: 20px;
+                transition: opacity 0.4s ease-in-out; }
+    a.active .img_wrapper img {
+        left: -20px;
+    }

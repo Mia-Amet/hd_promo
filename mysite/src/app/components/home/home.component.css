@@ -1,0 +1,49 @@
+section {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; }
+    h1 {
+    font-size: 5em;
+    font-weight: 800;
+    line-height: 1em;
+    margin-right: 20px; }
+        img {
+            height: 40px;
+            width: 31px;
+            left: 8px; }
+    .txt-sm {
+        font-size: 1em;
+        letter-spacing: 0.3em;
+        color: #878f9a;
+        margin-top: 1em; }
+
+button {
+    width: 140px;
+    height: 36px;
+    border: 1px solid #3df7c5;
+    border-radius: 3px;
+    margin-top: 3.5em;
+    background: transparent;
+    font-size: 1em;
+    text-transform: uppercase;
+    color: #3df7c5;
+    letter-spacing: 0.3em;
+    transition: all 0.3s ease-in-out; }
+    button:hover, button:focus {
+        cursor: pointer;
+        background: #3df7c5;
+        color: #25282c; }
+
+.intro {
+    position: fixed;
+    width: 50vw;
+    height: 100vh;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

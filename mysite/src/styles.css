@@ -1,0 +1,38 @@
+/* Font awesome */
+@import "https://use.fontawesome.com/releases/v5.1.0/css/all.css";
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
+    position: relative;
+    list-style-type: none;
+    text-decoration: none; }
+html {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    object-fit: contain;
+    width: 100vw;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden; }
+    body {
+        height: 100%;
+        min-height: 600px;
+        font: normal 62.5% 'Raleway', sans-serif;
+        color: #f4f4f4;
+        transition: color 0.3s ease-in-out; }
+        a:-webkit-any-link, a {
+            color: #45494e; }
+            a:-webkit-any-link:hover, a:hover {
+                color: #3df7c5; }
+        .tag {
+            font-family: 'Zeyada', sans-serif;
+            font-size: 2em;
+            color: #42474d; }
+            .tag:last-of-type {
+                text-indent: -30px; }

@@ -1,0 +1,33 @@
+<div class="wrapper" #wrapper>
+    <div [ngStyle]="currentStyles">
+        <div>
+            <p #firstLoad class="tag">&#60;body&#62;</p>
+        </div>
+
+        <div>
+            <p #firstLoad class="tag">&#60;h1&#62;</p>
+
+            <section>
+                <h1 #secondLoad>Hi,<br>
+                    I’m
+                    <img #secondLoad src="{{ imageUrl }}">
+                    asha,<br>
+                    web developer.</h1>
+
+                <p #firstLoad class="tag">&#60;/h1&#62;</p>
+            </section>
+
+            <p #secondLoad class="txt-sm">Front End Developer / Angular JS / UI & UX Design</p>
+            <button #secondLoad routerLink="contact">Contact me</button>
+        </div>
+
+        <div>
+            <p #firstLoad class="tag">&#60;/body&#62;</p>
+            <p #firstLoad class="tag">&#60;/html&#62;</p>
+        </div>
+    </div>
+
+    <div class="intro">
+
+    </div>
+</div>
