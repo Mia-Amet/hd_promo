@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit,AfterViewInit {
     'alt': 'D',
     'url': ''
   };
-  imageUrl: 'assets/img/logo-letter@2x.png';
+  imageUrl: '../../assets/img/logo-letter@2x.png';
   currentStyles = {};
 
   constructor() { }

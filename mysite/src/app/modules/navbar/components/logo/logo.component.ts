@@ -30,8 +30,4 @@ export class LogoComponent implements OnInit {
       'color': 'white'
     }
   }
-
-  insertLoader() {
-    this.loader.start();
-  }
 }

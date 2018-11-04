@@ -1,4 +1,5 @@
-import { Component, ViewChild, AfterViewInit, OnInit, ViewContainerRef, OnDestroy } from '@angular/core';
+import { Component, ViewChild, OnInit, ViewContainerRef, OnDestroy, EmbeddedViewRef } from '@angular/core';
+import { animate, animateChild, query, state, style, transition, trigger } from "@angular/animations";
 
 @Component({
   selector: 'loader',
@@ -7,7 +8,7 @@ import { Component, ViewChild, AfterViewInit, OnInit, ViewContainerRef, OnDestro
       <div class="l-container">
         <app-brand></app-brand>
         <div class="loader-text">{{ loaderText }}</div>
-        <app-progress [ngStyle]="progressContainerStyles"></app-progress>
+        <app-progress [ngStyle]="progressContainerStyles" (isComplete)="receiveComplete($event)"></app-progress>
       </div>
     </ng-template>`,
   styles: [`
@@ -23,12 +24,17 @@ import { Component, ViewChild, AfterViewInit, OnInit, ViewContainerRef, OnDestro
       justify-content: center;
       z-index: 5;
       background: #25282c;
+      animation: fadeOut 0.3s ease 1.25s forwards;
     }
     .l-container {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      opacity: 1;
+    }
+    .l-container, .loader-text, app-brand, app-progress {
+      animation: fadeOut 0.3s ease 1.2s forwards;
     }
     .loader-text {
       text-align: center;
@@ -37,13 +43,19 @@ import { Component, ViewChild, AfterViewInit, OnInit, ViewContainerRef, OnDestro
       letter-spacing: 0.3em;
       z-index: 1001;
       color: #60666e; }
+    
+    @keyframes fadeOut {
+      from { opacity: 1 }
+      to { opacity: 0 }
+    }
   `]
 })
 export class LoaderComponent implements OnInit, OnDestroy {
   loaderText: string = 'Dasha is thinking';
   progressContainerStyles = {};
-  viewRef;
-  outletElement;
+  viewRef: EmbeddedViewRef<LoaderComponent>;
+  outletElement: Element;
+  stateComplete: string = '';
 
   @ViewChild('loaderContainer') portalContainerTmplRef;
 
@@ -57,8 +69,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
       'display': 'flex',
       'justify-content': 'center',
       'align-items': 'center',
-      'z-index': 9998,
-      'transition': 'opacity 0.3s linear'
+      'z-index': 9998
     };
   }
 
@@ -70,13 +81,17 @@ export class LoaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  attachView() {
+  receiveComplete(state: boolean): void {
+    if (!state) return;
+    this.stateComplete = state.toString();
+  }
+
+  attachView(): void {
     this.viewRef = this.viewContainerRef.createEmbeddedView(this.portalContainerTmplRef);
     this.viewRef.detectChanges();
 
     // grab the DOM element
     this.outletElement = document.querySelector('#box');
-    console.log(this.outletElement);
 
     // attach the view to the DOM element that matches our selector
     this.viewRef.rootNodes.forEach(rootNode => this.outletElement.appendChild(rootNode));

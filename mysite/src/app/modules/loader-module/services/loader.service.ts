@@ -1,4 +1,4 @@
-import { ApplicationRef, ComponentFactoryResolver, EmbeddedViewRef, Injectable, Injector } from '@angular/core';
+import { ApplicationRef, ComponentFactoryResolver, Injectable, Injector } from '@angular/core';
 import { LoaderComponent } from "../components/loader.component";
 import { ComponentPortal, DomPortalHost } from "@angular/cdk/portal";
 
@@ -33,6 +33,6 @@ export class LoaderService {
     // Hide portal
     setTimeout(() => {
       this.portalHost.detach();
-    }, 2800);
+    }, 1300);
   }
 }
