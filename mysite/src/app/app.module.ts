@@ -4,26 +4,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 // Components
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
-import { AboutComponent } from './components/about/about.component';
-import { SkillsComponent } from './components/skills/skills.component';
-import { PortfolioComponent } from './components/portfolio/portfolio.component';
-import { ContactComponent } from './components/contact/contact.component';
-import { IntroComponent } from './components/home/intro/intro.component';
 // My modules
 import { RoutingModule } from "./routing.module";
 import { LoaderModule } from "./modules/loader-module/loader.module";
-import { NavbarModule } from "./modules/navbar/navbar.module";
+import { NavbarModule } from "./modules/navbar-module/navbar.module";
+import { HomeModule } from "./modules/home-module/home.module";
+import { AboutModule } from "./modules/about-module/about.module";
+import { SkillsModule } from "./modules/skills-module/skills.module";
+import { PortfolioModule } from "./modules/portfolio-module/portfolio.module";
+import { ContactModule } from "./modules/contact-module/contact.module";
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
-    AboutComponent,
-    SkillsComponent,
-    PortfolioComponent,
-    ContactComponent,
-    IntroComponent
+    AppComponent
   ],
   entryComponents: [],
   imports: [
@@ -32,7 +25,12 @@ import { NavbarModule } from "./modules/navbar/navbar.module";
     RoutingModule,
   // my modules
     LoaderModule,
-    NavbarModule
+    NavbarModule,
+    HomeModule,
+    AboutModule,
+    SkillsModule,
+    PortfolioModule,
+    ContactModule
   ],
   providers: [],
   bootstrap: [AppComponent]
