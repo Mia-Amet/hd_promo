@@ -1,56 +1,87 @@
 import { OnInit, Component } from '@angular/core';
-import { TweenMax, TimelineMax, TimelineLite, TweenLite } from 'gsap';
-import {animate, query, stagger, state, style, transition, trigger} from "@angular/animations";
-import { BehaviorSubject } from "rxjs";
+import { drawLinesAnimation, fadeInOutAnimation } from "../../helpers/my-animations";
+import { animateChild, query, stagger, transition, trigger, useAnimation } from "@angular/animations";
+import {BehaviorSubject} from "rxjs";
 
 @Component({
-  selector: 'app-intro',
-  templateUrl: './intro.component.html',
-  styleUrls: ['./intro.component.css'],
+  selector: 'app-initials',
+  templateUrl: './initials.component.html',
+  styleUrls: ['./initials.component.css'],
   animations: [
-    trigger('initialsAnimationFull', [
-      state('completed', style({ 'stroke-dashoffset': '0' })),
-      state('vanish', style({ 'opacity': 0 })),
-      transition('* => completed', [
-        style({'opacity': 1 }),
-        animate('2.5s ease-in-out',
-          style({ 'stroke-dashoffset': '0', opacity: .75 }))
+    trigger('drawLines', [
+      transition('draw-start => draw-end', [
+        query('@fadeOut', [
+          stagger(100, [
+            useAnimation(drawLinesAnimation, {
+              params: {
+                offsetFrom: 1000,
+                time: '2.5s ease-in'
+              }
+            })
+          ])
+        ])
       ]),
-      transition('completed => *', [
-        query('*', stagger(200, [
-          animate('1s ease', style({ opacity: 0 }))
-        ]))
+      transition('draw-end => *', [
+        query('@fadeOut, @fadeIn', [
+          animateChild()
+        ])
+      ])
+    ]),
+    trigger('fadeOut', [
+      transition('* => start', [
+        query(':self', [
+          stagger(100, [
+            useAnimation(fadeInOutAnimation, {
+              params: {
+                opacityStart: 1,
+                time: '2s ease-in',
+                opacityEnd: 0
+              }
+            })
+          ])
+        ])
       ])
     ]),
     trigger('fadeIn', [
-      transition('* => *', [
-        query(':self', stagger(-200, [
-          style({ opacity: 0 }),
-          animate('1.5s ease', style({ opacity: 1 }))
-        ]))
+      transition('* => start', [
+        query(':self', [
+          stagger(-100, [
+            useAnimation(fadeInOutAnimation, {
+              params: {
+                opacityStart: 0,
+                time: '2s ease-in',
+                opacityEnd: 1
+              }
+            })
+          ])
+        ])
       ])
     ])
   ]
 })
-export class IntroComponent implements OnInit {
-  animationStateExp: string = 'none';
-  transitionTrigger: boolean = false;
-  private transitionObserver: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  public transitionListener = this.transitionObserver.asObservable();
+export class InitialsComponent implements OnInit {
+  animationStateExp: string = 'draw-start';
+  isFading: boolean = false;
+  fadeComplete: boolean = false;
+  private animationStateEvent: BehaviorSubject<string> = new BehaviorSubject('draw-start');
+  public animationStateObserver = this.animationStateEvent.asObservable();
 
   constructor() { }
 
   ngOnInit() {
-    setTimeout(() => this.animationStateExp = 'completed', 1000);
+    this.animationStateObserver.subscribe((res: string) => {
+      if (res) this.animationStateExp = res;
+    });
     setTimeout(() => {
-      this.animationStateExp = 'vanish';
-      this.emitTransition(true);
-    }, 3500);
-
-    this.transitionListener.subscribe((res: boolean) => this.transitionTrigger = res);
+      this.emitState('draw-end');
+    }, 1000);
+    setTimeout(() => {
+      this.emitState('complete');
+      this.isFading = true;
+    }, 3700);
   }
 
-  emitTransition(value: boolean): void {
-    this.transitionObserver.next(value);
+  emitState(value: string): void {
+    this.animationStateEvent.next(value);
   }
 }

@@ -20,7 +20,7 @@
 svg {
   stroke-opacity: .2;
   stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
+  stroke-dashoffset: 0;
 }
 svg, img {
   width: 100%;
