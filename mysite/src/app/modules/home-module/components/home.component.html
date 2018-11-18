@@ -1,33 +1,34 @@
-<div class="wrapper" #wrapper>
-    <div [ngStyle]="currentStyles">
-        <div>
-            <p #firstLoad class="tag">&#60;body&#62;</p>
-        </div>
+<div class="content">
+  <div>
+    <p class="tag">&#60;body&#62;</p>
+  </div>
 
-        <div>
-            <p #firstLoad class="tag">&#60;h1&#62;</p>
+  <div>
+    <p class="tag">&#60;h1&#62;</p>
+    <section>
+      <h1 [@bubbleAnimation]="bubbleStateExp">
+        <span class="bubble-letter" *ngFor="let char of txt.slice(0, 3)">{{ char }}</span><br>
+        <span class="bubble-letter" *ngFor="let char of txt.slice(4, 8)">{{ char }}</span>
+        <img class="d-small" src="assets/img/logo-letter@2x.png">
+        <span class="bubble-letter" *ngFor="let char of txt.slice(9, 14)">{{ char }}</span><br>
+        <span class="bubble-letter" *ngFor="let char of txt.slice(15)">{{ char }}</span>
+      </h1>
+      <p class="tag">&#60;/h1&#62;</p>
+    </section>
+    <p class="txt-sm" [@bubbleAnimation]="bubbleStateExp">
+      <span class="bubble-letter" *ngFor="let char of sub">{{ char }}</span>
+    </p>
+    <button routerLink="/contact" (click)="onClick()">Contact me</button>
+  </div>
 
-            <section>
-                <h1 #secondLoad>Hi,<br>
-                    I’m
-                    <img #secondLoad src="assets/img/logo-letter@2x.png">
-                    asha,<br>
-                    web developer.</h1>
-
-                <p #firstLoad class="tag">&#60;/h1&#62;</p>
-            </section>
-
-            <p #secondLoad class="txt-sm">Front End Developer / Angular JS / UI & UX Design</p>
-            <button #secondLoad routerLink="contact">Contact me</button>
-        </div>
-
-        <div>
-            <p #firstLoad class="tag">&#60;/body&#62;</p>
-            <p #firstLoad class="tag">&#60;/html&#62;</p>
-        </div>
-    </div>
-
-    <div class="intro">
-      <app-initials></app-initials>
-    </div>
+  <div>
+    <p class="tag">&#60;/body&#62;</p>
+    <p class="tag">&#60;/html&#62;</p>
+  </div>
 </div>
+<!-- /.content -->
+<div class="intro">
+  <app-outline *ngIf="!outlineComplete"></app-outline>
+  <app-color *ngIf="outlineComplete"></app-color>
+</div>
+<!-- /.intro -->

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { LoaderService } from "../../../loader-module/services/loader.service";
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { HomePageService } from "../../../../services/home-page.service";
 
 @Component({
   selector: 'app-logo',
@@ -8,26 +8,23 @@ import { LoaderService } from "../../../loader-module/services/loader.service";
   exportAs: 'logoWrapper'
 })
 export class LogoComponent implements OnInit {
-  imageUrl: string = 'assets/img/logo@2x.png';
   name: string = 'Dasha';
-  txtStyles = {};
-  imageStyles = {};
+  protected _flag: boolean;
 
   constructor(
-    private loader: LoaderService
+    private hpService: HomePageService
   ) { }
 
   ngOnInit() {
-    this.imageStyles = {
-      'width': '40px',
-      'height': '33px'
-    };
-    this.txtStyles = {
-      'font-size': '1.2em',
-      'font-weight': 500,
-      'margin-top': '5px',
-      'text-indent': '3px',
-      'color': 'white'
-    }
+    this.hpService.emitFlag(window.location.pathname === '/home');
+    this.hpService.flagEvent.subscribe((res: boolean) => this._flag = res);
+  }
+
+  onClick(): void {
+    this.hpService.emitFlag(!this._flag);
+  }
+
+  skipLocation(): boolean {
+    return window.location.pathname === '/home';
   }
 }

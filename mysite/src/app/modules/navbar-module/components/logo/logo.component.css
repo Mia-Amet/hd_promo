@@ -1,2 +1,11 @@
-
-
+.logo-img-nav {
+  width: 40px;
+  height: 33px;
+}
+.logo-text-nav {
+  font-size: 1.2em;
+  font-weight: 500;
+  margin-top: 5px;
+  text-indent: 3px;
+  color: white;
+}

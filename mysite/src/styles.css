@@ -36,3 +36,40 @@ html {
             color: #42474d; }
             .tag:last-of-type {
                 text-indent: -30px; }
+
+router-outlet ~ * {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.d, .h {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  width: 45%;
+  max-width: 250px;
+  height: auto;
+  max-height: 100%;
+  margin: 0 20px;
+  position: relative;
+}
+.d {
+  top: -30px;
+}
+.h {
+  bottom: -30px;
+}
+svg, svg path {
+  stroke-opacity: .2;
+  stroke-dasharray: 1000;
+}
+svg, .color-letter {
+  width: 100%;
+  height: auto;
+  position: relative;
+}
+
+

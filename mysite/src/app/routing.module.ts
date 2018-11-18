@@ -9,10 +9,11 @@ import { ContactComponent } from "./modules/contact-module/components/contact.co
 const routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, data: { state: 'home' }},
-  { path: 'about-module', component: AboutComponent, data: { state: 'about-module' }},
-  { path: 'skills-module', component: SkillsComponent, data: { state: 'skills-module' }},
+  { path: 'home-2', component: HomeComponent, data: { state: 'home' }},
+  { path: 'about', component: AboutComponent, data: { state: 'about' }},
+  { path: 'skills', component: SkillsComponent, data: { state: 'skills' }},
   { path: 'works', component: PortfolioComponent, data: { state: 'works' }},
-  { path: 'contact-module', component: ContactComponent, data: { state: 'contact-module' }}
+  { path: 'contact', component: ContactComponent, data: { state: 'contact' }}
 ];
 
 @NgModule({

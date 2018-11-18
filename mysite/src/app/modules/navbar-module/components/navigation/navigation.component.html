@@ -1,10 +1,43 @@
 <ul>
-  <li *ngFor="let nav of navs">
-    <a routerLink="{{ nav.title.toLowerCase() }}" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+  <li>
+    <a [routerLink]="_flag ? 'home-2' : 'home'" [skipLocationChange]="skipLocation()" (click)="onClick(!_flag)"
+       routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
       <div class="img_wrapper">
-        <img src="{{ nav.imageUrl }}" alt="{{ nav.title }}">
+        <img src="./assets/img/icons/home@2x.png" alt="Home">
       </div>
-      <span>{{ nav.title }}</span>
+      <span>Home</span>
+    </a>
+  </li>
+  <li>
+    <a routerLink="about" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="onClick(false)">
+      <div class="img_wrapper">
+        <img src="./assets/img/icons/about@2x.png" alt="About">
+      </div>
+      <span>About</span>
+    </a>
+  </li>
+  <li>
+    <a routerLink="skills" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="onClick(false)">
+      <div class="img_wrapper">
+        <img src="./assets/img/icons/skills@2x.png" alt="Skills">
+      </div>
+      <span>Skills</span>
+    </a>
+  </li>
+  <li>
+    <a routerLink="works" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="onClick(false)">
+      <div class="img_wrapper">
+        <img src="./assets/img/icons/works@2x.png" alt="Works">
+      </div>
+      <span>Works</span>
+    </a>
+  </li>
+  <li>
+    <a routerLink="contact" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="onClick(false)">
+      <div class="img_wrapper">
+        <img src="./assets/img/icons/contact@2x.png" alt="Contact">
+      </div>
+      <span>Contact</span>
     </a>
   </li>
 </ul>

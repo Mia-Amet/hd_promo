@@ -1,4 +1,4 @@
-<a routerLink="/">
-  <img src="{{ imageUrl }}" [ngStyle]="imageStyles">
-  <p class="logo-text" [ngStyle]="txtStyles">{{ name }}</p>
+<a [routerLink]="_flag ? 'home-2' : 'home'" [skipLocationChange]="skipLocation()" (click)="onClick()">
+  <img src="./assets/img/logo@2x.png" class="logo-img-nav">
+  <p class="logo-text-nav">{{ name }}</p>
 </a>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HomePageService } from "../../../../services/home-page.service";
 
 @Component({
     selector: 'app-navigation',
@@ -6,38 +7,22 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
-    navs: any[] = [
-        {
-            'title': 'Home',
-            'imageUrl': ''
-        },
-        {
-            'title': 'About',
-            'imageUrl': ''
-        },
-        {
-            'title': 'Skills',
-            'imageUrl': ''
-        },
-        {
-            'title': 'Works',
-            'imageUrl': ''
-        },
-        {
-            'title': 'Contact',
-            'imageUrl': ''
-        }
-    ];
+  protected _flag: boolean;
 
-    constructor() { }
+  constructor(
+    private hpService: HomePageService
+  ) { }
 
-    ngOnInit() {
-        this.navs.forEach(nav => {
-            nav.imageUrl = this.handleNavsIcons(nav.title.toLowerCase());
-        });
-    }
+  ngOnInit() {
+    this.hpService.emitFlag(window.location.pathname === '/home');
+    this.hpService.flagEvent.subscribe((res: boolean) => this._flag = res);
+  }
 
-    handleNavsIcons(str) {
-        return window.devicePixelRatio < 1.5 ? `./assets/img/icons/${ str }.png` : `./assets/img/icons/${ str }@2x.png`;
-    }
+  onClick(value: boolean): void {
+    this.hpService.emitFlag(value);
+  }
+
+  skipLocation(): boolean {
+    return window.location.pathname === '/home';
+  }
 }
