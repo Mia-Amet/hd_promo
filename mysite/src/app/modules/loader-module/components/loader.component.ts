@@ -1,21 +1,23 @@
-import { Component, ViewChild, OnInit, ViewContainerRef, OnDestroy, EmbeddedViewRef } from '@angular/core';
-import { animate, animateChild, query, state, style, transition, trigger } from "@angular/animations";
+import { Component, OnInit } from '@angular/core';
+import { transition, trigger, animate, style, query, group } from "@angular/animations";
 
 @Component({
   selector: 'loader',
   template: `
-    <ng-template #loaderContainer>
-      <div class="l-container">
-        <app-brand></app-brand>
-        <div class="loader-text">{{ loaderText }}</div>
-        <app-progress [ngStyle]="progressContainerStyles" (isComplete)="receiveComplete($event)"></app-progress>
+    <div class="l-container">
+      <img [src]="imageUrl" class="loader-img">
+      <p class="logo-text">{{ name }}</p>
+      <div class="loader-text">{{ loaderText }}</div>
+      <div class="progressbar">
+        <div class="progress"></div>
       </div>
-    </ng-template>`,
+      <div class="loader-text">{{ currentPercentage }}</div>
+    </div>`,
   styles: [`
     :host {
       width: 100vw;
       height: 100vh;
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       display: flex;
@@ -23,9 +25,9 @@ import { animate, animateChild, query, state, style, transition, trigger } from 
       align-items: center;
       justify-content: center;
       z-index: 5;
-      background: #25282c;
-      animation: fadeOut 0.3s ease 1.25s forwards;
+      background: #1c1e21;
     }
+
     .l-container {
       display: flex;
       flex-direction: column;
@@ -33,67 +35,93 @@ import { animate, animateChild, query, state, style, transition, trigger } from 
       justify-content: center;
       opacity: 1;
     }
+
     .l-container, .loader-text, app-brand, app-progress {
       animation: fadeOut 0.3s ease 1.2s forwards;
     }
+
     .loader-text {
       text-align: center;
       font-size: 1em;
       margin: 10px 0 40px;
       letter-spacing: 0.3em;
       z-index: 1001;
-      color: #60666e; }
-    
-    @keyframes fadeOut {
-      from { opacity: 1 }
-      to { opacity: 0 }
+      color: #60666e;
     }
-  `]
+
+    .progressbar {
+      z-index: 1000;
+      width: 400px;
+      height: 1px;
+      background-color: #45494e;
+      display: flex;
+    }
+
+    .progress {
+      height: 100%;
+      background-color: #3df7c5;
+    }
+
+    .loader-img {
+      width: 40px;
+      height: 33px;
+      z-index: 1001;
+    }
+
+    .logo-text {
+      font-size: 1.2em;
+      font-weight: 500;
+      text-indent: 3px;
+      margin-top: 5px;
+      color: white;
+      z-index: 1001;
+    }
+  `],
+  animations: [
+    trigger('loaderAnimation', [
+      transition(':enter', [
+        query(':self', [
+          style({ transform: 'translateX(-100%)', position: 'absolute' }),
+          animate('1s ease-in-out', style({ transform: 'translateX(0%)' }))
+        ], { optional: true }),
+        query('.progress', [
+          style({ 'flex-basis': '0%', width: '0%' }),
+          animate('1.2s ease-in-out', style({ 'flex-basis': '100%', width: '100%' }))
+        ])
+      ]),
+      transition(':leave', [
+        group([
+          query('.progress', [
+            style({ 'flex-basis': '100%', width: '100%' })
+          ]),
+          query(':self', [
+            style({ transform: 'translateX(0%)' }),
+            animate('1s ease-in-out', style({ transform: 'translateX(100%)' }))
+          ], { optional: true })
+        ])
+      ])
+    ])
+  ],
+  host: { '[@loaderAnimation]': '' }
 })
-export class LoaderComponent implements OnInit, OnDestroy {
+export class LoaderComponent implements OnInit {
   loaderText: string = 'Dasha is thinking';
-  progressContainerStyles = {};
-  viewRef: EmbeddedViewRef<LoaderComponent>;
-  outletElement: Element;
-  stateComplete: string = '';
+  imageUrl: string = 'assets/img/logo@2x.png';
+  name: string = 'Dasha';
+  animationStateExp: string = 'stop';
+  currentPercentage: number = 0;
 
-  @ViewChild('loaderContainer') portalContainerTmplRef;
-
-  constructor(
-    private viewContainerRef: ViewContainerRef
-  ) { }
+  constructor() { }
 
   ngOnInit() {
-    this.attachView();
-    this.progressContainerStyles = {
-      'display': 'flex',
-      'justify-content': 'center',
-      'align-items': 'center',
-      'z-index': 9998
-    };
-  }
-
-  ngOnDestroy() {
-    // get the index of where our view resides inside the ViewContainer
-    const index = this.viewContainerRef.indexOf(this.viewRef);
-    if (index !== -1) {
-      this.viewContainerRef.remove(index);
-    }
-  }
-
-  receiveComplete(state: boolean): void {
-    if (!state) return;
-    this.stateComplete = state.toString();
-  }
-
-  attachView(): void {
-    this.viewRef = this.viewContainerRef.createEmbeddedView(this.portalContainerTmplRef);
-    this.viewRef.detectChanges();
-
-    // grab the DOM element
-    this.outletElement = document.querySelector('#box');
-
-    // attach the view to the DOM element that matches our selector
-    this.viewRef.rootNodes.forEach(rootNode => this.outletElement.appendChild(rootNode));
+    setTimeout(() => {
+      let interval = setInterval(() => {
+        this.currentPercentage += 1;
+        if (this.currentPercentage >= 100) {
+          clearInterval(interval);
+        }
+      }, 12);
+      this.animationStateExp = 'run';
+    }, 800);
   }
 }

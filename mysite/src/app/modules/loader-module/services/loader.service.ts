@@ -33,6 +33,6 @@ export class LoaderService {
     // Hide portal
     setTimeout(() => {
       this.portalHost.detach();
-    }, 1300);
+    }, 2200);
   }
 }

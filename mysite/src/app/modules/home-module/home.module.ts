@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoutingModule } from "../../routing.module";
 import { HomeComponent } from "./components/home.component";
-import { InitialsComponent } from "./components/initials/initials.component";
+import { OutlineComponent } from './components/outline/outline.component';
+import { ColorComponent } from './components/color/color.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    InitialsComponent
+    OutlineComponent,
+    ColorComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { InitialsComponent } from "./components/initials/initials.component";
   ],
   exports: [
     HomeComponent,
-    InitialsComponent
+    OutlineComponent,
+    ColorComponent
   ],
   providers: []
 })
