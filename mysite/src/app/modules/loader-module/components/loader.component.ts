@@ -15,8 +15,8 @@ import { transition, trigger, animate, style, query, group } from "@angular/anim
     </div>`,
   styles: [`
     :host {
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       position: absolute;
       top: 0;
       left: 0;
@@ -24,8 +24,7 @@ import { transition, trigger, animate, style, query, group } from "@angular/anim
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      z-index: 5;
-      background: #1c1e21;
+      background: #202328;
     }
 
     .l-container {
@@ -45,7 +44,6 @@ import { transition, trigger, animate, style, query, group } from "@angular/anim
       font-size: 1em;
       margin: 10px 0 40px;
       letter-spacing: 0.3em;
-      z-index: 1001;
       color: #60666e;
     }
 
@@ -65,7 +63,6 @@ import { transition, trigger, animate, style, query, group } from "@angular/anim
     .loader-img {
       width: 40px;
       height: 33px;
-      z-index: 1001;
     }
 
     .logo-text {
@@ -74,7 +71,6 @@ import { transition, trigger, animate, style, query, group } from "@angular/anim
       text-indent: 3px;
       margin-top: 5px;
       color: white;
-      z-index: 1001;
     }
   `],
   animations: [
